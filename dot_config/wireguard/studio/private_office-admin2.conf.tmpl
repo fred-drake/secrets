@@ -1,0 +1,2 @@
+{{- $wg := output "sops" "--decrypt" (printf "%s/wireguard.enc.yaml" .chezmoi.sourceDir) | fromYaml -}}
+{{- template "wireguard_config" $wg.studio.officeAdmin2 -}}

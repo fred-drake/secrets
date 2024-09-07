@@ -1,0 +1,7 @@
+{{- $config := output "sops" "--decrypt" (printf "%s/ssh_config.enc.yaml" .chezmoi.sourceDir) | fromYaml -}}
+{{ range $host, $params := $config }}
+Host {{ $host }}
+{{- range $key, $value := $params }}
+  {{ $key }} {{ $value }}
+{{- end }}
+{{- end }}

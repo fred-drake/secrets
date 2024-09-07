@@ -1,0 +1,8 @@
+{{- $secrets := output "sops" "--decrypt" (printf "%s/secrets.enc.yaml" .chezmoi.sourceDir) | fromYaml -}}
+export OCI_CLI_USER={{ $secrets.oci.user }}
+[DEFAULT]
+user={{ $secrets.oci.user }}
+fingerprint={{ $secrets.oci.fingerprint }}
+tenancy={{ $secrets.oci.tenancy }}
+region={{ $secrets.oci.region }}
+key_file={{ $secrets.oci.keyFile }}

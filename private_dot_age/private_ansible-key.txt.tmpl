@@ -1,0 +1,2 @@
+{{- $secrets := output "sops" "--decrypt" (printf "%s/secrets.enc.yaml" .chezmoi.sourceDir) | fromYaml -}}
+{{- $secrets.age.ansible }}

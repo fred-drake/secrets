@@ -1,0 +1,11 @@
+[Interface]
+Address = {{ .interface.address }}
+DNS = {{ .interface.dns }}
+PrivateKey = {{ .interface.privateKey }}
+
+[Peer]
+PublicKey = {{ .peer.publicKey }}
+{{- range $allowedIP := .peer.allowedIPs }}
+AllowedIPs = {{ $allowedIP }}
+{{- end }}
+Endpoint = {{ .peer.endpoint }}
