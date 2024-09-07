@@ -10,3 +10,6 @@ Otherwise, full file-based encryption is done using chezmoi's age encryption.
 ## Installation
 1. Pull the repo via chezmoi: `chezmoi init https://github.com/fred-drake/dotfiles.git`
 2. Apply the changes `chezmoi apply`
+
+## Post-Installation
+Copy the `hooks/pre-commit` file into `~/.local/share/chezmoi/.git/hooks` folder so you do not accidentally commit an unencrypted secrets file.

@@ -1,3 +1,4 @@
 .sops.yaml
 *.enc.yaml
 README.md
+hooks
