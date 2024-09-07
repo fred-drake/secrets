@@ -1,24 +1,20 @@
 #!/bin/sh
 
-# Check if secrets.enc.yaml is staged for commit
-if git diff --cached --name-only | grep -q "secrets.enc.yaml"; then
-    # Check if the file is encrypted with SOPS
-    if ! grep -q "sops:" secrets.enc.yaml; then
-        echo "Error: secrets.enc.yaml is not encrypted with SOPS."
-        echo "Please encrypt the file before committing."
-        exit 1
+check_encrypted_file() {
+    file="$1"
+    if git diff --cached --name-only | grep -q "$file"; then
+        if ! grep -q "sops:" "$file"; then
+            echo "Error: $file is not encrypted with SOPS."
+            echo "Please encrypt the file before committing."
+            exit 1
+        fi
     fi
-    if ! grep -q "sops:" ssh_config.enc.yaml; then
-        echo "Error: ssh_config.enc.yaml is not encrypted with SOPS."
-        echo "Please encrypt the file before committing."
-        exit 1
-    fi
-    if ! grep -q "sops:" wireguard.enc.yaml; then
-        echo "Error: wireguard.enc.yaml is not encrypted with SOPS."
-        echo "Please encrypt the file before committing."
-        exit 1
-    fi
-fi
+}
+
+# Check encrypted files
+check_encrypted_file "secrets.enc.yaml"
+check_encrypted_file "ssh_config.enc.yaml"
+check_encrypted_file "wireguard.enc.yaml"
 
 # If we reach here, the commit can proceed
 exit 0
